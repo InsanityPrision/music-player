@@ -5,21 +5,22 @@ export const areSameSong = (song: Song, songTitle: string): boolean => {
   // Asígnale a la variable areSame un true o un false dependiendo de si
   // el título de la canción recibida coincide con el título recibido
 
-  areSame = true; // Cambia esta línea por tu código
+  areSame = song.title === songTitle;
 
   return areSame;
 };
 
 export const addSong = (song: Song, songs: Song[]): void => {
   // Añade la canción recibida al array de canciones recibido
+  songs.push(song);
 };
 
 export const isPlaylistFull = (songs: Song[]): boolean => {
   let isFull: boolean;
   // Asígnale a la variable isFull un true o un false dependiendo de si
   // el array de títulos recibido tiene 4 o más elementos
-
-  isFull = false; // Cambia esta línea por tu código
+  const MaxSongs = 4;
+  isFull = songs.length === MaxSongs;
 
   return isFull;
 };
@@ -34,7 +35,16 @@ export const getErrorMessage = (errorCode: string): string => {
   // - "exists": "La canción ya existe"
   // - "limit": "La playlist está llena"
 
-  errorMessage = ""; // Cambia esta línea por tu código
+  switch (errorCode) {
+    case "exists":
+      errorMessage = "La canción ya existe";
+      break;
+    case "limit":
+      errorMessage = "La playlist está llena";
+      break;
+    default:
+      errorMessage = "ERROR!!!";
+  }
 
   return errorMessage;
 };
@@ -42,18 +52,22 @@ export const getErrorMessage = (errorCode: string): string => {
 export const getSongsCount = (songs: Song[]): number => {
   let songsCount: number;
   // Asígnale a la variable songsCount el número de canciones recibidas
-
-  songsCount = 0; // Cambia esta línea por tu código
+  songsCount = 0;
+  for (let count = 0; count <= songs.length; count++) {
+    songsCount = count;
+  }
 
   return songsCount;
 };
 
 export const removeSongByPosition = (songs: Song[], position: number): void => {
   // Elimina del array de canciones recibido la canción que se encuentra en la posición recibida
+  songs.splice(position, 1);
 };
 
 export const setCurrentSong = (song: Song): void => {
   // Establece la canción recibida como canción actual
+  song.isCurrent = true;
 };
 
 export const getNextSongPosition = (
@@ -65,8 +79,21 @@ export const getNextSongPosition = (
   // En songs tienes el array de canciones
   // Asígnale a la variable nextSongPosition el índice de la siguiente canción que se tiene que reproducir
   // Si la canción actual es la última, la siguiente será la primera
-  nextSongPosition = 0; // Sustituye este 0 por una expresión
+  nextSongPosition = 0;
 
+  switch (currentSongPosition) {
+    case 0:
+      nextSongPosition = currentSongPosition + 1;
+      break;
+    case 1:
+      nextSongPosition = currentSongPosition + 1;
+      break;
+    case 2:
+      nextSongPosition = currentSongPosition + 1;
+      break;
+    case 3:
+      nextSongPosition = 0;
+  }
   return nextSongPosition;
 };
 
@@ -75,7 +102,7 @@ export const isCurrentSong = (song: Song): boolean => {
   // Asígnale a la variable isCurrent un true o un false dependiendo de si
   // la canción recibida es la actual
 
-  isCurrent = false; // Cambia esta línea por tu código
+  isCurrent = song.isCurrent;
 
   return isCurrent;
 };
